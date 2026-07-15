@@ -2,7 +2,6 @@ package com.esre.common.dto;
 
 import java.time.LocalDateTime;
 
-import com.esre.auth.dto.response.AuthResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,4 +36,12 @@ public class ApiResponse<T> {
             .timestamp(LocalDateTime.now())
             .build();
     }
+
+    public static <T> ApiResponse<T> noContent() {
+        return ApiResponse.<T>builder()
+            .status(204)
+            .message("Sin contenido")
+            .timestamp(LocalDateTime.now())
+            .build();
+        }
 }
