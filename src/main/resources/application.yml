@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: esre-backend
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/esre
+    username: ${DB_USERNAME:esre_user}
+    password: ${DB_PASSWORD:esre_password}
+    driver-class-name: org.postgresql.Driver
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+server:
+  servlet:
+    context-path: /api
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:tu-super-secret-key-minimo-32-caracteres-aleatorios}
+  expiration: 86400000  # 24 horas en ms
+  refreshExpiration: 604800000  # 7 días en ms
+  algorithm: HS256
+
+logging:
+  level:
+    root: INFO
+    com.esre: DEBUG

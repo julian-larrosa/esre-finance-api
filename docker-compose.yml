@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    env_file: .env
+    container_name: ${DOCKER_NAME}
+    restart: always
+
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "${DB_PORT}:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    deploy:
+      resources:
+        limits:
+          memory: ${MEMORY}
+          cpus: "${CPUS}"
+        reservations:
+          memory: 256M
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    networks:
+      - masto-net
+
+volumes:
+  postgres_data:
+
+networks:
+  masto-net:
+    driver: bridge
