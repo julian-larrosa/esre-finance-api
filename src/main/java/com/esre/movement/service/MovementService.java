@@ -13,4 +13,5 @@ public interface MovementService {
 
     public MovementResponse create(CreateMovementRequest request, UUID userId);
     public List<MovementResponse> listMovements(UUID userId, MovementFilterRequest filter);
+    public MovementResponse getMovement(UUID movementId, UUID userId);
 }
