@@ -119,5 +119,9 @@ Authorization: Bearer <token>
 
 # Listar movimientos
 GET /api/movements?page=0&size=20&sort=date,desc
+
+## Autor
+
+Julián Larrosa 
 Authorization: Bearer <token>
 ```
