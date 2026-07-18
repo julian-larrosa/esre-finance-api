@@ -37,11 +37,11 @@ public class ApiResponse<T> {
             .build();
     }
 
-    public static <T> ApiResponse<T> noContent() {
+    public static <T> ApiResponse<T> noContent(T data) {
         return ApiResponse.<T>builder()
             .status(204)
             .message("Sin contenido")
             .timestamp(LocalDateTime.now())
             .build();
-        }
+    }
 }

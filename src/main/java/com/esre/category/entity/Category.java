@@ -35,7 +35,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column
+    @Column(name = "name")
     @NotNull
     @Size(max = 100)
     private String name;

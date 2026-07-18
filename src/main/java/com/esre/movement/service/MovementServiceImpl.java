@@ -15,6 +15,7 @@ import com.esre.category.exception.CategoryNotFoundException;
 import com.esre.category.repository.CategoryRepository;
 import com.esre.movement.dto.request.CreateMovementRequest;
 import com.esre.movement.dto.request.MovementFilterRequest;
+import com.esre.movement.dto.request.UpdateMovementRequest;
 import com.esre.movement.dto.response.MovementResponse;
 import com.esre.movement.entity.Movement;
 import com.esre.movement.exception.MovementNotFoundException;
@@ -70,6 +71,29 @@ public class MovementServiceImpl implements MovementService{
 
         Movement movement = movementRepository.findByIdAndUserId(movementId, userId)
                                               .orElseThrow(() -> new MovementNotFoundException("movimiento no encontrado"));
+        return movementMapper.toResponse(movement);
+    }
+
+    @Override
+    public MovementResponse updateMovement(UUID movementId, UUID userId, UpdateMovementRequest request) {
+        Movement movement = movementRepository.findByIdAndUserId(movementId, userId)
+                                              .orElseThrow(() -> new MovementNotFoundException("movimiento no encontrado"));
+        Category category = categoryRepository.findByIdAndUserId(request.getCategoryId(), userId)
+                                              .orElseThrow(() -> new CategoryNotFoundException("categoria no encontrada"));
+
+        movement.setAmount(request.getAmount());
+        movement.setCategory(category);
+        movement.setDate(request.getDate());
+        movement.setDescription(request.getDescription());
+        Movement updatedMovement = movementRepository.save(movement);
+        return movementMapper.toResponse(updatedMovement);
+    }
+
+    @Override
+    public MovementResponse deleteMovement(UUID movementId, UUID userId) {
+        Movement movement = movementRepository.findByIdAndUserId(movementId, userId)
+                                              .orElseThrow(() -> new MovementNotFoundException("movimiento no encontrado"));
+        movementRepository.delete(movement);
         return movementMapper.toResponse(movement);
     }
 
