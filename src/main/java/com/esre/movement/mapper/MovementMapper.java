@@ -4,14 +4,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import com.esre.category.mapper.CategoryMapper;
 import com.esre.movement.dto.request.CreateMovementRequest;
 import com.esre.movement.dto.response.MovementResponse;
 import com.esre.movement.entity.Movement;
 
 @Mapper(
     componentModel = "spring", 
-    uses = {CategoryMapper.class},
     unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface MovementMapper {

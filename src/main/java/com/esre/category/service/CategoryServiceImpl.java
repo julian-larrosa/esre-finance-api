@@ -16,7 +16,6 @@ import com.esre.category.exception.CategoryNotFoundException;
 import com.esre.category.exception.ResourceAlreadyExistsException;
 import com.esre.category.mapper.CategoryMapper;
 import com.esre.category.repository.CategoryRepository;
-import com.esre.movement.entity.Movement;
 import com.esre.user.entity.User;
 import com.esre.user.repository.UserRepository;
 
@@ -30,9 +29,6 @@ public class CategoryServiceImpl implements CategoryService{
     private final CategoryMapper categoryMapper;
     private final UserRepository userRepository;
 
-    CategoryServiceImpl(MovementRepository movementRepository) {
-        this.movementRepository = movementRepository;
-    }
 
     @Override
     public CategoryResponse create(CreateCategoryRequest request, UUID userId) {
@@ -75,12 +71,11 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryResponse updateCategory(UUID categoryId, UUID userId, CreateCategoryRequest request) {
-        
+        return null;
     }
 
     @Override
     public CategoryResponse deleteCategory(UUID categoryId, UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCategory'");
+        return null;
     }
 }

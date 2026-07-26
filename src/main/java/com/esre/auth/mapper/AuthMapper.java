@@ -6,8 +6,11 @@ import com.esre.user.entity.User;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", 
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
 public interface AuthMapper {
     
     @Mapping(target = "id", ignore = true)
@@ -20,5 +23,4 @@ public interface AuthMapper {
     @Mapping(target = "token", ignore = true)
     @Mapping(target = "expiresIn", ignore = true)
     AuthResponse toResponse(User user);
-
 }
