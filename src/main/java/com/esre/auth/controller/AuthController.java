@@ -37,6 +37,5 @@ public class AuthController {
         AuthResponse response = authService.login(request);
         return ResponseEntity.status(HttpStatus.OK)
                              .body(ApiResponse.ok(response));
-
     }
 }

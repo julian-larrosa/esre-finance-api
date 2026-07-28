@@ -51,6 +51,7 @@ public class User implements UserDetails{
     private LocalDateTime updatedAt;
 
     @Column(name = "is_active")
+    @Builder.Default
     private Boolean isActive = true;
 
     @Override
