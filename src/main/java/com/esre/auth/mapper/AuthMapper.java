@@ -16,7 +16,7 @@ public interface AuthMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "isActive", constant = "true")
+    @Mapping(target = "isActive", ignore = true)
     User toEntity(RegisterRequest request);
     
     @Mapping(target = "userId", source = "id")

@@ -1,5 +1,7 @@
 package com.esre.category.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -11,6 +13,8 @@ import com.esre.category.entity.Category;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CategoryMapper {
     CategoryResponse toResponse(Category category);
+
+    List<CategoryResponse> toResponseList(List<Category> categories);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

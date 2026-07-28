@@ -15,7 +15,6 @@ import com.esre.movement.entity.Movement;
 public interface MovementMapper {
 
     @Mapping(target = "category.id", source = "categoryId")
-    @Mapping(target = "description", source = "description")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
