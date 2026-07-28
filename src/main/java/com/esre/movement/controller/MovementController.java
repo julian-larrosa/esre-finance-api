@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esre.common.dto.ApiResponse;
+import com.esre.config.SwaggerConstants;
 import com.esre.movement.dto.request.CreateMovementRequest;
 import com.esre.movement.dto.request.MovementFilterRequest;
 import com.esre.movement.dto.request.UpdateMovementRequest;
@@ -37,7 +37,7 @@ public class MovementController {
     private final MovementService movementService;
 
     @PostMapping
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "movimiento creado exitosamente")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = SwaggerConstants.CREATED, description = "movimiento creado exitosamente")
     @Operation(summary = "Crear nuevo movimiento", description = "Crea un movimiento con una categoria asociada")
     public ResponseEntity<ApiResponse<MovementResponse>> create(@Valid @RequestBody CreateMovementRequest request, 
                                                                 @AuthenticationPrincipal User user){
@@ -47,7 +47,7 @@ public class MovementController {
     }
 
     @GetMapping
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "movimientos listados exitosamente")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = SwaggerConstants.OK, description = "movimientos listados exitosamente")
     @Operation(summary = "Listar movimientos", description = "Lista movimientos del usuario")
     public ResponseEntity<ApiResponse<List<MovementResponse>>> listMovements(@AuthenticationPrincipal User user, 
                                                                      @Valid MovementFilterRequest filter){
@@ -58,7 +58,7 @@ public class MovementController {
     }
 
     @GetMapping("/{movementId}")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "movimiento mostrado exitosamente")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = SwaggerConstants.OK, description = "movimiento mostrado exitosamente")
     @Operation(summary = "Obtener movimiento", description = "Obtiene un movimiento del usuario")
     public ResponseEntity<ApiResponse<MovementResponse>> getMovement(@PathVariable UUID movementId, @AuthenticationPrincipal User user){
         MovementResponse response = movementService.getMovement(movementId, user.getId());
@@ -67,7 +67,7 @@ public class MovementController {
     }
 
     @DeleteMapping("/{movementId}")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "204", description = "movimiento eliminado exitosamente")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = SwaggerConstants.NO_CONTENT, description = "movimiento eliminado exitosamente")
     @Operation(summary = "Eliminar movimiento", description = "Elimina un movimiento del usuario")
     public ResponseEntity<ApiResponse<MovementResponse>> deleteMovement(@PathVariable UUID movementId, @AuthenticationPrincipal User user){
         MovementResponse response = movementService.deleteMovement(movementId, user.getId());
@@ -76,7 +76,7 @@ public class MovementController {
     }
 
     @PutMapping("/{movementId}")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "movimiento actualizado exitosamente")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = SwaggerConstants.OK, description = "movimiento actualizado exitosamente")
     @Operation(summary = "Editar movimientos", description = "Edita movimientos del usuario")
     public ResponseEntity<ApiResponse<MovementResponse>> updateMovement(@PathVariable UUID movementId, @AuthenticationPrincipal User user,@Valid @RequestBody UpdateMovementRequest request){
         MovementResponse response = movementService.updateMovement(movementId, user.getId(), request);
