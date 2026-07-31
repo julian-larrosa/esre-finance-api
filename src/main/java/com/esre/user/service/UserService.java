@@ -9,4 +9,8 @@ public interface UserService {
     public User findByEmail(String email);
 
     public void setPassword(User user, String password);
+
+    public User findByUsername(String username);
+
+    public boolean existsByUsername(String username);
 }

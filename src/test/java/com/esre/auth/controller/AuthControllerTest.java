@@ -44,13 +44,16 @@ class AuthControllerTest {
     @Test
     void register_WhenRequestIsValid_ShouldReturnCreated() throws Exception {
         String email = "usuario-" + UUID.randomUUID() + "@email.com";
+        String username = "usuario_" + UUID.randomUUID();
 
         RegisterRequest request = new RegisterRequest();
         request.setEmail(email);
+        request.setUsername(username);
         request.setPassword("Password123");
         request.setConfirmPassword("Password123");
 
         AuthResponse response = new AuthResponse();
+        response.setUsername(username);
         response.setEmail(email);
         response.setToken("jwt-token");
         response.setExpiresIn(86400000L);
@@ -65,6 +68,7 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.status").value(201))
                 .andExpect(jsonPath("$.message").value("Creado exitosamente"))
                 .andExpect(jsonPath("$.data.email").value(email))
+                .andExpect(jsonPath("$.data.username").value(username))
                 .andExpect(jsonPath("$.data.token").value("jwt-token"))
                 .andExpect(jsonPath("$.data.expiresIn").value(86400000L))
                 .andExpect(jsonPath("$.timestamp").exists());
@@ -75,6 +79,7 @@ class AuthControllerTest {
     @Test
     void login_WhenRequestIsValid_ShouldReturnOk() throws Exception {
         String email = "usuario-" + UUID.randomUUID() + "@email.com";
+        String username = "usuario_" + UUID.randomUUID();
 
         LoginRequest request = new LoginRequest();
         request.setEmail(email);
@@ -82,6 +87,7 @@ class AuthControllerTest {
 
         AuthResponse response = new AuthResponse();
         response.setEmail(email);
+        response.setUsername(username);
         response.setToken("jwt-token");
         response.setExpiresIn(86400000L);
 
@@ -95,6 +101,7 @@ class AuthControllerTest {
             .andExpect(jsonPath("$.status").value(200))
             .andExpect(jsonPath("$.message").value("OK"))
             .andExpect(jsonPath("$.data.email").value(email))
+            .andExpect(jsonPath("$.data.username").value(username))
             .andExpect(jsonPath("$.data.token").value("jwt-token"))
             .andExpect(jsonPath("$.data.expiresIn").value(86400000L))
             .andExpect(jsonPath("$.timestamp").exists());

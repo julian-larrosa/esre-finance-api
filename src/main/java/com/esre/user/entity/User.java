@@ -32,6 +32,9 @@ public class User implements UserDetails{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank

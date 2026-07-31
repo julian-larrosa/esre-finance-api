@@ -1,7 +1,4 @@
 package com.esre.auth.service;
-
-import javax.management.RuntimeErrorException;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +25,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse register(RegisterRequest request) {
         try{
-            if(userService.existsByEmail(request.getEmail())){
-                throw new ResourceAlreadyExistsException("El usuario ya está registrado");
+            if (userService.existsByEmail(request.getEmail())) {
+                throw new ResourceAlreadyExistsException("El email ya está registrado");
+            }
+            
+            if (userService.existsByUsername(request.getUsername())) {
+                throw new ResourceAlreadyExistsException("El username ya está registrado");
             }
 
             if (!request.getPassword().equals(request.getConfirmPassword())){

@@ -31,4 +31,15 @@ public class UserServiceImpl implements UserService {
     public void setPassword(User user, String password){
         user.setPassword(password);
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UnauthorizedException("credenciales incorrectas"));
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }
