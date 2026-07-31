@@ -2,10 +2,8 @@ package com.esre.user.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.esre.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,10 +11,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService{
     
-    private final UserRepository userRepository;
+    private final UserService userService;
+
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+    public UserDetails loadUserByUsername(String username) {
+        return userService.findByUsername(username);
     }
+
 }
