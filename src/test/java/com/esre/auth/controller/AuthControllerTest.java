@@ -19,6 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import com.esre.auth.filter.JwtAuthenticationFilter;
 
@@ -40,13 +43,15 @@ class AuthControllerTest {
 
     @Test
     void register_WhenRequestIsValid_ShouldReturnCreated() throws Exception {
+        String email = "usuario-" + UUID.randomUUID() + "@email.com";
+
         RegisterRequest request = new RegisterRequest();
-        request.setEmail("usuario@email.com");
+        request.setEmail(email);
         request.setPassword("Password123");
         request.setConfirmPassword("Password123");
 
         AuthResponse response = new AuthResponse();
-        response.setEmail("usuario@email.com");
+        response.setEmail(email);
         response.setToken("jwt-token");
         response.setExpiresIn(86400000L);
 
@@ -59,7 +64,7 @@ class AuthControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.status").value(201))
                 .andExpect(jsonPath("$.message").value("Creado exitosamente"))
-                .andExpect(jsonPath("$.data.email").value("usuario@email.com"))
+                .andExpect(jsonPath("$.data.email").value(email))
                 .andExpect(jsonPath("$.data.token").value("jwt-token"))
                 .andExpect(jsonPath("$.data.expiresIn").value(86400000L))
                 .andExpect(jsonPath("$.timestamp").exists());
@@ -69,14 +74,16 @@ class AuthControllerTest {
     
     @Test
     void login_WhenRequestIsValid_ShouldReturnOk() throws Exception {
-    LoginRequest request = new LoginRequest();
-    request.setEmail("usuario@email.com");
-    request.setPassword("Password123");
+        String email = "usuario-" + UUID.randomUUID() + "@email.com";
 
-    AuthResponse response = new AuthResponse();
-    response.setEmail("usuario@email.com");
-    response.setToken("jwt-token");
-    response.setExpiresIn(86400000L);
+        LoginRequest request = new LoginRequest();
+        request.setEmail(email);
+        request.setPassword("Password123");
+
+        AuthResponse response = new AuthResponse();
+        response.setEmail(email);
+        response.setToken("jwt-token");
+        response.setExpiresIn(86400000L);
 
     when(authService.login(any(LoginRequest.class)))
             .thenReturn(response);
@@ -87,7 +94,7 @@ class AuthControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value(200))
             .andExpect(jsonPath("$.message").value("OK"))
-            .andExpect(jsonPath("$.data.email").value("usuario@email.com"))
+            .andExpect(jsonPath("$.data.email").value(email))
             .andExpect(jsonPath("$.data.token").value("jwt-token"))
             .andExpect(jsonPath("$.data.expiresIn").value(86400000L))
             .andExpect(jsonPath("$.timestamp").exists());

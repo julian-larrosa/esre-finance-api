@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UnauthorizedException("credenciales incorrectas"));
     }
+
+    @Override
+    public void setPassword(User user, String password){
+        user.setPassword(password);
+    }
 }
